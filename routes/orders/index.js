@@ -5,7 +5,7 @@ const deleteOrder = require('./delete-order');
 
 module.exports = function(db) {
   router.post('/', createOrder);
-  router.delete('/', deleteOrder);
+  router.delete('/:id', deleteOrder);
 
   router.get('/', function(req, res, next) {
     // TODO handle `Show all orders to a particular address` query
