@@ -4,6 +4,29 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var debug = require('debug')('borderguru-coding-test:app');
+
+const dbConnection = require('./services/database-connection');
+
+(async () => {
+  const dbOptions = {
+    uri: process.env.MONGO_URI
+  };
+
+  try {
+    const client = await dbConnection.connect(dbOptions);
+
+    if (client.isConnected()) {
+      debug('db connection established');
+      const db = dbConnection.getDb(process.env.DATABASE_NAME);
+      // TODO pass the db instance to order services,
+      // later this OrderService will be passed into the order route handlers
+    }
+  } catch (e) {
+    debug('e', e);
+    debug('connection is not established just yet');
+  }
+})();
 
 var index = require('./routes/index');
 var orders = require('./routes/orders')({ hello: 'world' });
