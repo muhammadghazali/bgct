@@ -1,36 +1,12 @@
 var express = require('express');
 var router = express.Router();
+const createOrder = require('./create-order');
 
 module.exports = function(db) {
   /**
    * Create new order
    */
-  router.post('/', function(req, res, next) {
-    const {
-      companyName,
-      customerAddress,
-      orderedItem,
-      price,
-      currency
-    } = req.body;
-
-    const invalidPayload =
-      companyName === undefined ||
-      customerAddress === undefined ||
-      orderedItem === undefined ||
-      price === undefined ||
-      currency === undefined;
-
-    if (invalidPayload) {
-      return res.status(400).send({
-        message: 'Invalid order'
-      });
-    }
-
-    res.send({
-      orderId: 'The created order identifier'
-    });
-  });
+  router.post('/', createOrder);
 
   router.delete('/', function(req, res, next) {
     res.send('respond with a resource');
