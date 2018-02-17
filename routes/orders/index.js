@@ -1,13 +1,11 @@
 var express = require('express');
 var router = express.Router();
 const createOrder = require('./create-order');
+const deleteOrder = require('./delete-order');
 
 module.exports = function(db) {
   router.post('/', createOrder);
-
-  router.delete('/', function(req, res, next) {
-    res.send('respond with a resource');
-  });
+  router.delete('/', deleteOrder);
 
   router.get('/', function(req, res, next) {
     // TODO handle `Show all orders to a particular address` query

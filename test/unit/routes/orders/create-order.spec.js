@@ -3,7 +3,7 @@ const sinon = require('sinon');
 const createRouteHandler = require('./../../../../routes/orders/create-order');
 const MockExpressResponse = require('mock-express-response');
 
-describe.only('Test the create order route handler', function() {
+describe('Test the create order route handler', function() {
   it('should be defined', function() {
     expect(createRouteHandler).to.be.a('function');
   });
