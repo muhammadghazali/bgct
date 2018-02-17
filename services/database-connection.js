@@ -1,4 +1,4 @@
-const debug = require('debug')('borderguru-coding-test:app');
+const debug = require('debug')('borderguru-coding-test:database-connection');
 const MongoClient = require('mongodb').MongoClient;
 
 let client;
