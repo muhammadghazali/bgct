@@ -3,9 +3,6 @@ var router = express.Router();
 const createOrder = require('./create-order');
 
 module.exports = function(db) {
-  /**
-   * Create new order
-   */
   router.post('/', createOrder);
 
   router.delete('/', function(req, res, next) {
