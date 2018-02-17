@@ -2,7 +2,7 @@ const sinon = require('sinon');
 const expect = require('chai').expect;
 const MongoClient = require('mongodb').MongoClient;
 
-const dbConnection = require('./../../../../services/database-connection');
+const dbConnection = require('./../../../services/database-connection');
 
 describe('Database connection', function() {
   describe('check the APIs', function() {
