@@ -1,5 +1,4 @@
 const debug = require('debug')('borderguru-coding-test:service-order');
-const dbConnection = require('./../services/database-connection');
 const { ObjectID } = require('mongodb');
 
 let existingCollection;
