@@ -1,14 +1,11 @@
-module.exports = function(req, res, next) {
-  const {
-    companyName,
-    customerAddress,
-    orderedItem,
-    price,
-    currency
-  } = req.body;
+const debug = require('debug')('borderguru-coding-test:route-create-order');
+const orderService = require('./../../services/order')();
+
+module.exports = async function(req, res, next) {
+  const { company, customerAddress, orderedItem, price, currency } = req.body;
 
   const invalidPayload =
-    companyName === undefined ||
+    company === undefined ||
     customerAddress === undefined ||
     orderedItem === undefined ||
     price === undefined ||
@@ -20,7 +17,10 @@ module.exports = function(req, res, next) {
     });
   }
 
-  res.send({
-    orderId: 'The created order identifier'
-  });
+  try {
+    const newData = await oasrderService.create(req.body);
+    res.send(newData);
+  } catch (error) {
+    debug('cannot save the order details', error);
+  }
 };

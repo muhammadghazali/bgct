@@ -21,7 +21,7 @@ describe('Test the create order route handler', function() {
   it('should proceed the request if request body is valid', function() {
     const req = {
       body: {
-        companyName: 'SuperTrader',
+        company: 'SuperTrader',
         customerAddress: 'Steindamm 80',
         orderedItem: 'Macbook',
         price: 1700,

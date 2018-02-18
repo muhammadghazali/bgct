@@ -19,8 +19,8 @@ const dbConnection = require('./services/database-connection');
     if (client.isConnected()) {
       debug('db connection established');
       const db = dbConnection.getDb(process.env.DATABASE_NAME);
-      // TODO pass the db instance to order services,
-      // later this OrderService will be passed into the order route handlers
+      // pass the collection and let the service module cache it
+      require('./services/order')(db.collection('orders'));
     }
   } catch (e) {
     debug('e', e);
@@ -29,7 +29,8 @@ const dbConnection = require('./services/database-connection');
 })();
 
 var index = require('./routes/index');
-var orders = require('./routes/orders')({ hello: 'world' });
+var orders = require('./routes/orders');
+
 var app = express();
 
 // view engine setup

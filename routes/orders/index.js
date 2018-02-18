@@ -4,10 +4,8 @@ const createOrder = require('./create-order');
 const deleteOrder = require('./delete-order');
 const listOrder = require('./list-order');
 
-module.exports = function(db) {
-  router.post('/', createOrder);
-  router.delete('/:id', deleteOrder);
-  router.get('/', listOrder);
+router.post('/', createOrder);
+router.get('/', listOrder);
+router.delete('/:id', deleteOrder);
 
-  return router;
-};
+module.exports = router;

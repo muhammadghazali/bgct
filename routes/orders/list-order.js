@@ -36,4 +36,6 @@ module.exports = function(req, res, next) {
       message: 'The item name should be provided in count request query'
     });
   }
+
+  return res.send(200);
 };
