@@ -1,4 +1,6 @@
-module.exports = function(req, res, next) {
+const debug = require('debug')('borderguru-coding-test:route-delete-order');
+
+module.exports = async function(req, res, next) {
   const { id } = req.params;
 
   const invalidPayload = id === undefined;
@@ -9,7 +11,20 @@ module.exports = function(req, res, next) {
     });
   }
 
-  res.status(204).send({
-    orderId: 'The order has been deleted'
-  });
+  try {
+    const result = await res.locals.orderService.delete(id);
+
+    if (result.deletedCount === 0) {
+      return res.status(404).send({
+        message: 'Order not found'
+      });
+    }
+
+    res.status(204).send({
+      message: 'The order has been deleted'
+    });
+  } catch (error) {
+    debug('cannot delete the order', error);
+    return res.status(500).send();
+  }
 };

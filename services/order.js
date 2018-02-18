@@ -1,7 +1,9 @@
 const debug = require('debug')('borderguru-coding-test:service-order');
 const dbConnection = require('./../services/database-connection');
+const { ObjectID } = require('mongodb');
 
 let existingCollection;
+
 module.exports = function(collection) {
   existingCollection = collection;
   return {
@@ -13,6 +15,9 @@ module.exports = function(collection) {
       });
       return existingCollection.insertOne(newData);
     },
+
+    delete: id =>
+      existingCollection.deleteOne({ _id: ObjectID.createFromHexString(id) }),
 
     getOrdersByCompany: async function(options) {
       return null;

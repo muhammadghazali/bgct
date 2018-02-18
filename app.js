@@ -8,26 +8,6 @@ var debug = require('debug')('borderguru-coding-test:app');
 
 const dbConnection = require('./services/database-connection');
 
-(async () => {
-  const dbOptions = {
-    uri: process.env.MONGO_URI
-  };
-
-  try {
-    const client = await dbConnection.connect(dbOptions);
-
-    if (client.isConnected()) {
-      debug('db connection established');
-      const db = dbConnection.getDb(process.env.DATABASE_NAME);
-      // pass the collection and let the service module cache it
-      require('./services/order')(db.collection('orders'));
-    }
-  } catch (e) {
-    debug('e', e);
-    debug('connection is not established just yet');
-  }
-})();
-
 var index = require('./routes/index');
 var orders = require('./routes/orders');
 
@@ -44,6 +24,29 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(async function(req, res, next) {
+  const dbOptions = {
+    uri: process.env.MONGO_URI
+  };
+
+  try {
+    const client = await dbConnection.connect(dbOptions);
+
+    if (client.isConnected()) {
+      debug('db connection established');
+      const db = dbConnection.getDb(process.env.DATABASE_NAME);
+      // pass the collection and let the service module cache it
+      const orderService = require('./services/order')(db.collection('orders'));
+      res.locals.orderService = orderService;
+    }
+
+    next();
+  } catch (e) {
+    debug('e', e);
+    debug('connection is not established just yet');
+  }
+});
 
 app.use('/', index);
 app.use('/orders', orders);

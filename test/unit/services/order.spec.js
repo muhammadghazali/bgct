@@ -45,4 +45,17 @@ describe('Order service', function() {
       expect(collection.insertOne.calledOnce).to.be.true;
     });
   });
+
+  describe('Test the delete method', function() {
+    it('should called the deleteOne(...)', function() {
+      const collection = {
+        deleteOne: sinon.spy().withArgs('507f191e810c19729de860ea')
+      };
+
+      const orderService = require('./../../../services/order')(collection);
+      orderService.delete('507f191e810c19729de860ea');
+
+      expect(collection.deleteOne.calledOnce).to.be.true;
+    });
+  });
 });
