@@ -6,9 +6,10 @@ module.exports = async function(req, res, next) {
   // skates, 1x for the rest)` query
   const { address, company, count } = req.query;
 
-  // TODO handle `Show all orders to a particular address` query
   if (address && address.length > 0) {
-    return res.status(200).send([]);
+    const list = await res.locals.orderService.getOrdersByAddress(address);
+
+    return res.status(200).send(list);
   }
 
   if (address === '') {

@@ -21,9 +21,8 @@ module.exports = function(collection) {
     getOrdersByCompany: companyName =>
       existingCollection.find({ company: companyName }).toArray(),
 
-    getOrdersByAddress: async function(options) {
-      return null;
-    },
+    getOrdersByAddress: customerAddress =>
+      existingCollection.find({ customerAddress: customerAddress }).toArray(),
 
     getOrderStatistics: async function(options) {
       return null;
