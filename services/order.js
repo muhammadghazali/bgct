@@ -25,6 +25,8 @@ module.exports = function(collection) {
       existingCollection.find({ customerAddress: customerAddress }).toArray(),
 
     getOrderStatistics: async function(options) {
+      // TODO run a distinct operation in orders collection
+      // TODO count the number of documents for each of the result from distinct operation
       return null;
     }
   };
