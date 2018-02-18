@@ -8,17 +8,17 @@ describe('Test the create order route handler', function() {
     expect(createRouteHandler).to.be.a('function');
   });
 
-  it('should not proceed the request if the request body is invalid', function() {
+  it('should not proceed the request if the request body is invalid', async function() {
     const req = { body: {} };
     const res = new MockExpressResponse();
     const spyStatus = sinon.spy(res, 'status');
 
-    createRouteHandler(req, res);
+    await createRouteHandler(req, res);
 
     expect(spyStatus.calledOnce).to.be.true;
   });
 
-  it('should proceed the request if request body is valid', function() {
+  it('should proceed the request if request body is valid', async function() {
     const req = {
       body: {
         company: 'SuperTrader',
@@ -31,7 +31,7 @@ describe('Test the create order route handler', function() {
     const res = new MockExpressResponse();
     const spyStatus = sinon.spy(res, 'status');
 
-    createRouteHandler(req, res);
+    await createRouteHandler(req, res);
 
     expect(spyStatus.notCalled).to.be.true;
   });
