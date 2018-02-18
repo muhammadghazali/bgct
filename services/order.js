@@ -18,9 +18,8 @@ module.exports = function(collection) {
     delete: id =>
       existingCollection.deleteOne({ _id: ObjectID.createFromHexString(id) }),
 
-    getOrdersByCompany: async function(options) {
-      return null;
-    },
+    getOrdersByCompany: companyName =>
+      existingCollection.find({ company: companyName }).toArray(),
 
     getOrdersByAddress: async function(options) {
       return null;
