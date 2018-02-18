@@ -18,8 +18,9 @@ module.exports = async function(req, res, next) {
   }
 
   try {
-    const newData = await oasrderService.create(req.body);
-    res.send(newData);
+    const newData = await orderService.create(req.body);
+
+    res.send({ id: newData.insertedId });
   } catch (error) {
     debug('cannot save the order details', error);
   }
