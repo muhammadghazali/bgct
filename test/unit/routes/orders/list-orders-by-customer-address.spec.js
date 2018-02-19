@@ -22,7 +22,7 @@ describe('Test the list orders by customer address route handler', function() {
     const stubGetOrdersByCustomerAddress = sinon.stub().resolves([
       {
         id: '5a89b313627d4440f75e2638',
-        address: 'Some big company',
+        company: 'Some big company',
         customerAddress: 'Steindamm 80',
         orderedItem: 'Macbook',
         price: 1700,
