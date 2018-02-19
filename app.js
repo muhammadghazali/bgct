@@ -10,6 +10,7 @@ const dbConnection = require('./services/database-connection');
 
 var index = require('./routes/index');
 var orders = require('./routes/orders');
+var companies = require('./routes/companies');
 
 var app = express();
 
@@ -38,7 +39,11 @@ app.use(async function(req, res, next) {
       const db = dbConnection.getDb(process.env.DATABASE_NAME);
       // pass the collection and let the service module cache it
       const orderService = require('./services/order')(db.collection('orders'));
+      const companyService = require('./services/company')(
+        db.collection('companies')
+      );
       res.locals.orderService = orderService;
+      res.locals.companyService = companyService;
     }
 
     next();
@@ -50,6 +55,7 @@ app.use(async function(req, res, next) {
 
 app.use('/', index);
 app.use('/orders', orders);
+app.use('/companies', companies);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
