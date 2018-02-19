@@ -30,14 +30,16 @@ module.exports = async function(req, res, next) {
     });
   }
 
-  // TODO handle `Display how often each item has been ordered` query
-  if (count && count.length > 0) {
-    return res.status(200).send([]);
+  if (count === 'true') {
+    const result = await res.locals.orderService.getOrderStatistics();
+
+    return res.status(200).send(await result);
   }
 
-  if (count === '') {
+  if (count !== 'true') {
     return res.status(400).send({
-      message: 'The item name should be provided in count request query'
+      message:
+        'To get the order statistics the count on request query parameter should be set to true'
     });
   }
 

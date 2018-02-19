@@ -24,10 +24,27 @@ module.exports = function(collection) {
     getOrdersByAddress: customerAddress =>
       existingCollection.find({ customerAddress: customerAddress }).toArray(),
 
-    getOrderStatistics: async function(options) {
-      // TODO run a distinct operation in orders collection
-      // TODO count the number of documents for each of the result from distinct operation
-      return null;
+    getOrderStatistics: async () => {
+      const items = await existingCollection.distinct('orderedItem');
+
+      const countPromises = items.map(async item => {
+        const countResult = await existingCollection.count({
+          orderedItem: item
+        });
+
+        return {
+          [item]: countResult
+        };
+      });
+
+      const result = await Promise.all(countPromises);
+      const statistics = {};
+
+      result.forEach(element => {
+        Object.assign(statistics, element);
+      });
+
+      return statistics;
     }
   };
 };

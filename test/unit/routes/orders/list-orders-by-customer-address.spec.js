@@ -4,10 +4,6 @@ const MockExpressResponse = require('mock-express-response');
 const listOrderRouteHandler = require('./../../../../routes/orders/list-order');
 
 describe('Test the list orders by customer address route handler', function() {
-  it('should be defined', function() {
-    expect(listOrderRouteHandler).to.be.a('function');
-  });
-
   it('should not proceed the request if customer address is not specified in request query params', async function() {
     const req = {
       query: {
